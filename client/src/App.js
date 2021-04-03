@@ -1,25 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useRef } from 'react';
 
-function App() {
+const App = () => {
+  const title = useRef('');
+
+  const getTitle = async () => {
+    console.log('fetch here');
+    const result = await fetch('/').json();
+    title.current = result.title;
+  };
+
+  useEffect(() => {
+    getTitle();
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <header className="App-header">{title.current}</header>
     </div>
   );
-}
+};
 
 export default App;
