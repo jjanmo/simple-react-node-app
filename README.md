@@ -7,8 +7,7 @@
 > 프로젝트의 목표
 
 - react와 node의 연결 설정
-- dev mode 와 prod mode의 환경설정
--
+- dev mode 와 prod mode의 환경 설정
 
 ## Tech Stack
 
