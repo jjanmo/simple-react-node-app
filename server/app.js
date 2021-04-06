@@ -1,21 +1,12 @@
 const createError = require('http-errors');
-const express = require('express');
-const app = express();
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const mongoose = require('mongoose');
-const dotenv = require('dotenv');
-dotenv.config();
+const express = require('express');
+const app = express();
+const db = require('./db');
 
-mongoose
-  .connect(process.env.MONGODB_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
-  })
-  .then(() => console.log('MongoDB Connected...'));
+db.connect();
 
 const indexRouter = require('./routes/index');
 
