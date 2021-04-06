@@ -1,5 +1,6 @@
 const createError = require('http-errors');
 const express = require('express');
+const app = express();
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
@@ -17,8 +18,6 @@ mongoose
   .then(() => console.log('MongoDB Connected...'));
 
 const indexRouter = require('./routes/index');
-
-const app = express();
 
 app.use(logger('dev'));
 app.use(express.json());
