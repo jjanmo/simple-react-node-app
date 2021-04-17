@@ -8,10 +8,9 @@ const postJoin = (req, res) => {
   try {
     const user = new User(req.body);
 
-    // TODO need validatation : use express validator https://express-validator.github.io/docs/
     user.save((error, userInfo) => {
       if (error) return res.json({ success: false, error });
-      return res.json({ success: true });
+      return res.status(200).json({ success: true });
     });
   } catch (error) {
     console.log(error);
