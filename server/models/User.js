@@ -31,17 +31,20 @@ const userSchema = mongoose.Schema({
 
 userSchema.pre('save', function (next) {
   const user = this;
-
-  bcrypt.genSalt(SALT_ROUNDS, (err, salt) => {
-    if (err) return next(err);
-
-    bcrypt.hash(user.password, salt, (err, encrypted) => {
+  if (!user.isModified('password')) {
+    bcrypt.genSalt(SALT_ROUNDS, (err, salt) => {
       if (err) return next(err);
 
-      user.password = encrypted;
-      next();
+      bcrypt.hash(user.password, salt, (err, encrypted) => {
+        if (err) return next(err);
+
+        user.password = encrypted;
+        next();
+      });
     });
-  });
+  } else {
+    next();
+  }
 });
 
 const User = mongoose.model('User', userSchema);
