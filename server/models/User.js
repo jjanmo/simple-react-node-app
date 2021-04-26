@@ -33,8 +33,7 @@ const userSchema = mongoose.Schema({
 
 userSchema.pre('save', function (next) {
   const user = this;
-
-  if (!user.isModified('password')) {
+  if (user.isModified('password')) {
     bcrypt.genSalt(SALT_ROUNDS, (err, salt) => {
       if (err) return next(err);
 
