@@ -1,8 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const SALT_ROUNDS = 10;
-const SECRET = 'Z3oM7nvQeE';
+require('dotenv').config();
 
 const userSchema = mongoose.Schema({
   name: {
@@ -34,7 +33,7 @@ const userSchema = mongoose.Schema({
 userSchema.pre('save', function (next) {
   const user = this;
   if (user.isModified('password')) {
-    bcrypt.genSalt(SALT_ROUNDS, (err, salt) => {
+    bcrypt.genSalt(parseInt(process.env.SALT_ROUNDS, 10), (err, salt) => {
       if (err) return next(err);
 
       bcrypt.hash(user.password, salt, (err, encrypted) => {
@@ -59,7 +58,7 @@ userSchema.methods.checkPassword = function (password, cb) {
 userSchema.methods.generateToken = function (cb) {
   const user = this;
 
-  const token = jwt.sign(user._id.toHexString(), SECRET);
+  const token = jwt.sign(user._id.toHexString(), process.env.SECRET);
   user.token = token;
   user.save(function (error, user) {
     if (error) return cb(error);
