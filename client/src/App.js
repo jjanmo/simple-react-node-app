@@ -5,8 +5,11 @@ const App = () => {
 
   const getTitle = async () => {
     console.log('fetch here');
-    const result = await fetch('/').json();
-    title.current = result.title;
+    const result = await fetch('/');
+
+    // const data = JSON.parse();
+    console.log('✅', await result.json());
+    // title.current = result.title;
   };
 
   useEffect(() => {
