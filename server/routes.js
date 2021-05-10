@@ -4,6 +4,7 @@ const routes = {
   user: {
     login: '/login',
     join: '/join',
+    logout: '/logout',
   },
 };
 
