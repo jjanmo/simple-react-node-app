@@ -19,7 +19,7 @@ const userSchema = mongoose.Schema({
   },
   role: {
     type: Number,
-    default: 0,
+    default: 0, // 0 user / 1 admin
   },
   image: String,
   token: {
@@ -58,12 +58,25 @@ userSchema.methods.checkPassword = function (password, cb) {
 userSchema.methods.generateToken = function (cb) {
   const user = this;
 
+  // encoding(sign) : user id + secret string => token
   const token = jwt.sign(user._id.toHexString(), process.env.SECRET);
   user.token = token;
   user.save(function (error, user) {
     if (error) return cb(error);
 
     cb(null, user);
+  });
+};
+
+userSchema.statics.findByToken = function (token, cb) {
+  const user = this;
+
+  // decoding(verify) :  token + secret string => user id
+  jwt.verify(token, process.env.SECRET, function (error, decoded) {
+    user.findOne({ _id: decoded, token }, function (error, user) {
+      if (error) return cb(error);
+      cb(null, user);
+    });
   });
 };
 
