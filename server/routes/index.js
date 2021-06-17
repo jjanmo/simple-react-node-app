@@ -1,10 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const routes = require('../routes');
-const { home, hello } = require('../controllers/indexController');
+const { home } = require('../controllers/indexController');
 
-router.get(routes.home, home);
+// router.get(routes.home, home);
 
-router.get(routes.hello, hello);
+router.get('/api/hello', (req, res) => {
+  res.send('hello world ⭐️');
+});
 
 module.exports = router;

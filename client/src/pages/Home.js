@@ -2,11 +2,8 @@ import React, { useEffect } from 'react';
 import axios from 'axios';
 
 const Home = () => {
-  const sayHello = async () => await axios.get('/hello');
-
   useEffect(() => {
-    const result = sayHello();
-    console.log(result);
+    axios.get('/api/hello').then((res) => console.log('😈', res.data));
   }, []);
 
   return <h1>This is Home page</h1>;

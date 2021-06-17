@@ -4,10 +4,6 @@ const home = (req, res) => {
   res.send('Hello World 🔥');
 };
 
-const hello = (req, res) => {
-  res.send('hello world ⭐️');
-};
-
 const postJoin = (req, res) => {
   const user = new User(req.body);
 
@@ -58,5 +54,4 @@ module.exports = {
   postJoin,
   postLogin,
   postLogout,
-  hello,
 };

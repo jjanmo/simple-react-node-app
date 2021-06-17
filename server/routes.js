@@ -1,5 +1,4 @@
 const routes = {
-  hello: '/hello',
   home: '/',
   auth: '/auth',
   user: {
