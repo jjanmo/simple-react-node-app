@@ -1,0 +1,23 @@
+{
+  "name": "simple-react-node-app",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies": {
+    "concurrently": "^6.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "dev": "concurrently \"npm run start --prefix server\" \"npm run start --prefix client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jjanmo/simple-react-node-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jjanmo/simple-react-node-app/issues"
+  },
+  "homepage": "https://github.com/jjanmo/simple-react-node-app#readme"
+}
