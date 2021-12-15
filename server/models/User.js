@@ -36,9 +36,9 @@ userSchema.pre('save', function (next) {
     bcrypt.genSalt(parseInt(process.env.SALT_ROUNDS, 10), (err, salt) => {
       if (err) return next(err);
 
-      bcrypt.hash(user.password, salt, (err, encrypted) => {
+      bcrypt.hash(user.password, salt, (err, hash) => {
         if (err) return next(err);
-        user.password = encrypted;
+        user.password = hash;
         next();
       });
     });
@@ -49,7 +49,7 @@ userSchema.pre('save', function (next) {
 
 userSchema.methods.checkPassword = function (password, cb) {
   bcrypt.compare(password, this.password, function (error, isMatch) {
-    if (error) return error;
+    if (error) return cb(error);
 
     cb(null, isMatch);
   });
@@ -58,7 +58,8 @@ userSchema.methods.checkPassword = function (password, cb) {
 userSchema.methods.generateToken = function (cb) {
   const user = this;
 
-  // encoding(sign) : user id + secret string => token
+  // sign(id, secret) => token(JWT access token)
+  // → id + secret key => token : encoding 과정
   const token = jwt.sign(user._id.toHexString(), process.env.SECRET);
   user.token = token;
   user.save(function (error, user) {
@@ -71,10 +72,12 @@ userSchema.methods.generateToken = function (cb) {
 userSchema.statics.findByToken = function (token, cb) {
   const user = this;
 
-  // decoding(verify) :  token + secret string => user id
+  // verify(token, secret) => id
+  // → token + secret key => id : decoding 과정(더하는 개념은 아니다.)
   jwt.verify(token, process.env.SECRET, function (error, decoded) {
     user.findOne({ _id: decoded, token }, function (error, user) {
       if (error) return cb(error);
+
       cb(null, user);
     });
   });

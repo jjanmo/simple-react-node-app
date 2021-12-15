@@ -39,7 +39,6 @@ const postLogin = (req, res) => {
 };
 
 const postLogout = (req, res) => {
-  console.log(req.user);
   User.findOneAndUpdate({ _id: req.user._id }, { token: '' }, (error, user) => {
     if (error) return res.json({ success: false, error });
 
