@@ -13,6 +13,7 @@ const indexRouter = require('./routes/index');
 const userRouter = require('./routes/users');
 const authRouter = require('./routes/auths');
 
+app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
