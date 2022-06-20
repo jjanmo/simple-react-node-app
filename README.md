@@ -1,5 +1,11 @@
 # Simple React-Node App
 
+<h1>This project is deprecated</h1>
+
+아래 내용들은 다른 프로젝트를 진행될 예정입니다 🙇🏻
+
+<hr />
+
 프런트엔드(client)는 리액트(react)로, 백엔드(server)는 노드(express)를 이용하여 간단한 어플리케이션을 만들어보자 🚀
 
 ## Goals
